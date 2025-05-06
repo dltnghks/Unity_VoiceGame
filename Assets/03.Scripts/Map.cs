@@ -17,7 +17,6 @@ public class Map : MonoBehaviour
     // Object Pool
     private Queue<GameObject> obstacles = new Queue<GameObject>();
     private List<GameObject> spawnedObstacles = new List<GameObject>();
-    private int maxObstacles = 5;
     
     [Header("Game Settings")]
     public float ObstacleInterval = 5f;

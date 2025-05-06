@@ -13,19 +13,17 @@ public class Player : MonoBehaviour
     
     private bool isJumping = false;
     private Rigidbody2D rigidbody; 
-    private Collider2D collider;
     
     private Animator animator;
 
     
     // "앞으로 가자" 명령어
-    Regex jump_regex = new Regex(@"(뛰어|점프|위로|넘어가|넘어 가|폴짝)");
+    Regex jump_regex = new Regex(@"(뛰어|점프|위로|넘어가|넘어 가|폴짝|JUMP|jump|Jumping)");
     
     private void Awake()
     {
         VoskSpeechToText.OnTranscriptionResult += OnTranscriptionResult;
         rigidbody = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
     }
 
@@ -37,6 +35,7 @@ public class Player : MonoBehaviour
 
     private void OnTranscriptionResult(string obj)
     {
+        Debug.Log(obj);
         var result = new RecognitionResult(obj);
         foreach (RecognizedPhrase p in result.Phrases)
         {

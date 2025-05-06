@@ -9,6 +9,7 @@ using Ionic.Zip;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Vosk;
 
@@ -82,6 +83,8 @@ public class VoskSpeechToText : MonoBehaviour
 	static readonly ProfilerMarker voskRecognizerCreateMarker = new ProfilerMarker("VoskRecognizer.Create");
 	static readonly ProfilerMarker voskRecognizerReadMarker = new ProfilerMarker("VoskRecognizer.AcceptWaveform");
 
+	public Image SpeakerImage;
+	
 	//If Auto start is enabled, starts vosk speech to text.
 	void Start()
 	{
@@ -89,6 +92,7 @@ public class VoskSpeechToText : MonoBehaviour
 		{
 			StartVoskStt();
 		}
+		
 	}
 
 	/// <summary>
@@ -279,6 +283,8 @@ public class VoskSpeechToText : MonoBehaviour
 		{
 			// voiceResult -> NLP모델로 처리하기
 		    OnTranscriptionResult?.Invoke(voiceResult);
+		    
+		    SpeakerImage.color = new Color(1f, 1f, 1f, 1f);
 		}
 	}
 
@@ -322,7 +328,6 @@ public class VoskSpeechToText : MonoBehaviour
 		voskRecognizerCreateMarker.End();
 
 		voskRecognizerReadMarker.Begin();
-
 		while (_running)
 		{
 			if (_threadedBufferQueue.TryDequeue(out short[] voiceResult))
@@ -336,7 +341,7 @@ public class VoskSpeechToText : MonoBehaviour
 			else
 			{
 				// Wait for some data
-				await Task.Delay(1);
+				await Task.Delay(100);
 			}
 		}
 
