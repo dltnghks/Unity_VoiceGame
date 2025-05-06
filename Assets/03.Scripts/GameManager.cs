@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance = null;
 
     public float InitGameSpeed = 0.005f;
+    public float MaxGameSpeed = 0.01f;
     public float GameSpeed = 0.005f;
     
     public bool IsGameOver = false;
@@ -36,6 +37,11 @@ public class GameManager : MonoBehaviour
         {
             Score += Time.deltaTime;
             AddScoreAction?.Invoke(Score);
+            
+            if (MaxGameSpeed >= GameSpeed)
+            {
+                GameSpeed +=  ((MaxGameSpeed-InitGameSpeed) / 60f) * Time.deltaTime;
+            }
         }
     }
     

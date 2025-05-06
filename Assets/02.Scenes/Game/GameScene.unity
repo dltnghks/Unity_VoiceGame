@@ -542,6 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitGameSpeed: 0.005
+  MaxGameSpeed: 0.01
   GameSpeed: 0.005
   IsGameOver: 0
   Score: 0
