@@ -28,7 +28,7 @@ public class VoskDialogText : MonoBehaviour
     Regex cabbage_regex = new Regex(@"(배추|배추를|배추부터 시작)");
 
 // 염소를 뒤로 보내는 명령어
-    Regex goat_back_regex = new Regex(@"(염소 뒤로|염소를 되돌려|염소를 뒤로 보내)");
+    Regex goat_back_regex = new Regex(@"(염소 뒤로|염소 돌려|염소를 되돌려|염소를 뒤로 보내)");
 
 // 늑대를 뒤로 보내는 명령어
     Regex wolf_back_regex = new Regex(@"(늑대 뒤로|늑대를 되돌려|늑대를 뒤로 보내)");
@@ -40,7 +40,7 @@ public class VoskDialogText : MonoBehaviour
     Regex forward_regex = new Regex(@"(앞으로 가|앞으로 이동|전진)");
 
 // "뒤로 가자" 명령어
-    Regex back_regex = new Regex(@"(뒤로 가|뒤로 이동|되돌아가자|뒤로 가기)");
+    Regex back_regex = new Regex(@"(뒤로 가|뒤로 이동|돌아가|뒤로 가기)");
 
 
 	// State

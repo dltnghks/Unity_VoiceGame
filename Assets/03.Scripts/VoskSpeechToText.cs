@@ -277,13 +277,14 @@ public class VoskSpeechToText : MonoBehaviour
 	{
 		if (_threadedResultQueue.TryDequeue(out string voiceResult))
 		{
+			// voiceResult -> NLP모델로 처리하기
 		    OnTranscriptionResult?.Invoke(voiceResult);
 		}
 	}
 
 	//Callback from the voice processor when new audio is detected
 	private void VoiceProcessorOnOnFrameCaptured(short[] samples)
-	{	
+	{
                 _threadedBufferQueue.Enqueue(samples);
 	}
 
@@ -335,7 +336,7 @@ public class VoskSpeechToText : MonoBehaviour
 			else
 			{
 				// Wait for some data
-				await Task.Delay(100);
+				await Task.Delay(1);
 			}
 		}
 
