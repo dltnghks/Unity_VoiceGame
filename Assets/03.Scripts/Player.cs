@@ -12,16 +12,19 @@ public class Player : MonoBehaviour
     public float JumpForce = 5f;
     
     private bool isJumping = false;
-    private Rigidbody rigidbody; 
+    private Rigidbody2D rigidbody; 
+    
+    private Animator animator;
 
     
     // "앞으로 가자" 명령어
-    Regex jump_regex = new Regex(@"(뛰어|점프|위로|넘어가|넘어 가|폴짝)");
+    Regex jump_regex = new Regex(@"(뛰어|점프|위로|넘어가|넘어 가|폴짝|JUMP|jump|Jumping)");
     
     private void Awake()
     {
         VoskSpeechToText.OnTranscriptionResult += OnTranscriptionResult;
-        rigidbody = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     public void FixedUpdate()
@@ -32,6 +35,7 @@ public class Player : MonoBehaviour
 
     private void OnTranscriptionResult(string obj)
     {
+        Debug.Log(obj);
         var result = new RecognitionResult(obj);
         foreach (RecognizedPhrase p in result.Phrases)
         {
@@ -46,12 +50,12 @@ public class Player : MonoBehaviour
     // 점프 함수
     void Jump()
     {
-        if (!isJumping)
+        if (!isJumping && !GameManager.Instance.IsGameOver)
         {
+            animator.SetTrigger("TriggerJump");
             isJumping = true; 
             Debug.Log("Jump");
             rigidbody.velocity = Vector2.up * JumpForce; // 위 방향으로 힘을 주어 점프
-            isJumping = false; // 점프 후 초기화
         }
     }
 
@@ -59,5 +63,21 @@ public class Player : MonoBehaviour
     public void TriggerJump()
     {
         isJumping = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            Debug.Log(collision.gameObject.name);
+            animator.SetTrigger("TriggerDeath");
+            GameManager.Instance.GameOver();
+            return;
+        }
+        if (collision.gameObject.tag == "Ground" && isJumping)
+        {
+            animator.SetTrigger("TriggerMove");
+            isJumping = false; // 점프 후 초기화
+        }
     }
 }
