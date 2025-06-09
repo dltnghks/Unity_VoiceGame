@@ -181,7 +181,7 @@ public class VoiceProcessor : MonoBehaviour
     /// <param name="sampleRate">Sample rate to record at</param>
     /// <param name="frameSize">Size of audio frames to be delivered</param>
     /// <param name="autoDetect">Should the audio continuously record based on the volume</param>
-    public void StartRecording(int sampleRate = 16000, int frameSize = 30, bool ?autoDetect = null)
+    public void StartRecording(int sampleRate = 16000, int frameSize = 5, bool ?autoDetect = null)
     {
         if (autoDetect != null)
         {

@@ -16,4 +16,12 @@ public class Obstacle : MonoBehaviour
     {
         transform.position += Vector3.left * GameManager.Instance.GameSpeed;
     }
+
+    public void DestroyObstacle()
+    {
+        Debug.Log($"장애물 {gameObject.name} 파괴됨!");
+
+        // 자신을 비활성화화
+        gameObject.SetActive(false);
+    }  
 }
